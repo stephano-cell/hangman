@@ -1,11 +1,105 @@
-// 1.Disable new guesses unless "playing"
-// 2.Setup a new method to get back a status message
+class Hangman{
+    constructor(word,remainingGuesses){
+    this.word=word.toLowerCase().split('')
+    this.remainingGuesses=remainingGuesses
+    this.guessLetters=[] 
+    this.status='playing'
+    }
 
-// Playing -> Guesses left: 3
-// Failed  -> Nice try! The word was "Cat".
-// Finished-> Great work! You guessed the word.
+    //check if game is finished or failed (97)
+    calculateStatus(){
+        let isGuessCorrect=true
+
+        this.word.forEach((letter)=>{
+       
+         if(this.guessLetters.includes(letter)){
+    
+            }else {
+                isGuessCorrect=false
+            }
+       
+        })
+        if(this.remainingGuesses===0){
+            this.status='fail'
+        }else if(isGuessCorrect){
+            this.status='finished'
+        }else{
+            this.status='playing'
+        }
+    }
+    //Status message
+    statusMessage(){
+        //to show wrong guesses to user
+        let wrongGuesses=''
+        this.guessLetters.forEach((letter)=>{
+            if(!this.word.includes(letter)){
+                wrongGuesses+=letter+','    
+            }
+            })
+    
+        if(this.status==='fail'){
+            return `Nice try. Correct word was "${this.word.join('')}"`
+        }else if(this.status==='finished'){
+            return 'Great job'
+        }else if(this.status==="playing"){
+           return `Guesses left: ${this.remainingGuesses}. Your Wrong guessed words are:  ${wrongGuesses}`
+        }
+    }
+
+    getPuzzle(){
+        let puzzle=''
+        this.word.forEach((letter)=>{
+        this.guessLetters.includes(letter) || letter===" "?puzzle+=letter:puzzle+='*'
+         
+        })
+            return puzzle
+        }
+        makeGuess(guess){
+            guess=guess.toLowerCase()
+            if(this.status==='fail' || this.status==='finished'){
+                return
+            }
+            const isUnique=!this.guessLetters.includes(guess)
+            const isGoodGuess=this.word.includes(guess)
+        
+            if(isUnique&&isGoodGuess){
+        
+                this.guessLetters.push(guess)
+        
+            }else if( isUnique && !isGoodGuess){
+                this.remainingGuesses-=1
+                this.guessLetters.push(guess)
+            }
+        
+            this.calculateStatus()
+        
+        }
+
+}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 const Hangman=function(word,remainingGuesses){
     this.word=word.toLowerCase().split('')
     this.remainingGuesses=remainingGuesses
@@ -88,3 +182,4 @@ Hangman.prototype.makeGuess=function(guess){
 
 }
 
+*/
