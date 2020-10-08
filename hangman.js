@@ -1,24 +1,77 @@
-//1. Display the puzzle to the browser instead of the console
-//2. Display the guesses left to the browser instead of console
-//3. Separate the Hangman definition from the rest of the app code (use app.js)
+// 1.Disable new guesses unless "playing"
+// 2.Setup a new method to get back a status message
+
+// Playing -> Guesses left: 3
+// Failed  -> Nice try! The word was "Cat".
+// Finished-> Great work! You guessed the word.
+
 
 const Hangman=function(word,remainingGuesses){
     this.word=word.toLowerCase().split('')
-    this.guessedCount=remainingGuesses
+    this.remainingGuesses=remainingGuesses
     this.guessLetters=[] 
+    this.status='playing'
 }
 
+//check if game is finished or failed (97)
+Hangman.prototype.calculateStatus=function(){
+
+    let isGuessCorrect=true
+
+    this.word.forEach((letter)=>{
+   
+     if(this.guessLetters.includes(letter)){
+
+        }else {
+            isGuessCorrect=false
+        }
+   
+    })
+    if(this.remainingGuesses===0){
+        this.status='fail'
+    }else if(isGuessCorrect){
+        this.status='finished'
+    }else{
+        this.status='playing'
+    }
+
+}
+
+//status message
+Hangman.prototype.statusMessage=function(){
+    //to show wrong guesses to user
+    let wrongGuesses=''
+    this.guessLetters.forEach((letter)=>{
+        if(!this.word.includes(letter)){
+            wrongGuesses+=letter+','    
+        }
+        })
+
+    if(this.status==='fail'){
+        return `Nice try. Correct word was "${this.word.join('')}"`
+    }else if(this.status==='finished'){
+        return 'Great job'
+    }else if(this.status==="playing"){
+       return `Guesses left: ${this.remainingGuesses}. Your Wrong guessed words are:  ${wrongGuesses}`
+    }
+    
+    }
 Hangman.prototype.getPuzzle=function(){
-let puzzle=[]
+let puzzle=''
 this.word.forEach((letter)=>{
-    this.guessLetters.includes(letter) || letter===" "?puzzle+=letter:puzzle+='*'
+this.guessLetters.includes(letter) || letter===" "?puzzle+=letter:puzzle+='*'
+ 
 })
     return puzzle
 }
 
+
+
 Hangman.prototype.makeGuess=function(guess){
     guess=guess.toLowerCase()
-
+    if(this.status==='fail' || this.status==='finished'){
+        return
+    }
     const isUnique=!this.guessLetters.includes(guess)
     const isGoodGuess=this.word.includes(guess)
 
@@ -27,7 +80,11 @@ Hangman.prototype.makeGuess=function(guess){
         this.guessLetters.push(guess)
 
     }else if( isUnique && !isGoodGuess){
-        this.guessedCount-=1
+        this.remainingGuesses-=1
         this.guessLetters.push(guess)
     }
+
+    this.calculateStatus()
+
 }
+

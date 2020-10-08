@@ -7,14 +7,22 @@
 //Number: myNumber-->Number.prototype-->Object.prototype-->null\
 //Boolean: myBoolean-->Boolean.prototype-->Object.prototype-->null
 
-const game1=new Hangman('spiderman',10)
 
-document.querySelector('#get-puzzle').textContent=game1.getPuzzle()
-document.querySelector('#guess-count').textContent=game1.guessedCount
+const getPuzzleEl=document.querySelector('#get-puzzle')
+const guessCountEl=document.querySelector('#guess-count')
+const statusMessageEl=document.querySelector('#status-message')
+
+const game1=new Hangman('superman',10)
+
+getPuzzleEl.textContent=game1.getPuzzle()
+guessCountEl.textContent=`The word has ${game1.word.length} letters`
+statusMessageEl.textContent=game1.statusMessage()
 
 window.addEventListener('keypress',function(e){
     const guess=String.fromCharCode(e.charCode)
-game1.makeGuess(guess)
-document.querySelector('#get-puzzle').textContent=game1.getPuzzle()
-document.querySelector('#guess-count').textContent=game1.guessedCount
+    game1.makeGuess(guess)
+    getPuzzleEl.textContent=game1.getPuzzle()
+    guessCountEl.textContent=`The word has ${game1.word.length} letters`
+    statusMessageEl.textContent=game1.statusMessage()
+
 })
