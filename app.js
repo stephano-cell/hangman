@@ -11,18 +11,19 @@
 const getPuzzleEl=document.querySelector('#get-puzzle')
 const guessCountEl=document.querySelector('#guess-count')
 const statusMessageEl=document.querySelector('#status-message')
+const game1=new Hangman('superman yolo',10)
 
-const game1=new Hangman('superman',10)
+getPuzzleEl.textContent=game1.getPuzzle
+statusMessageEl.textContent=game1.statusMessage
 
-getPuzzleEl.textContent=game1.getPuzzle()
 guessCountEl.textContent=`The word has ${game1.word.length} letters`
-statusMessageEl.textContent=game1.statusMessage()
+
 
 window.addEventListener('keypress',function(e){
     const guess=String.fromCharCode(e.charCode)
     game1.makeGuess(guess)
-    getPuzzleEl.textContent=game1.getPuzzle()
+    getPuzzleEl.textContent=game1.getPuzzle
     guessCountEl.textContent=`The word has ${game1.word.length} letters`
-    statusMessageEl.textContent=game1.statusMessage()
+    statusMessageEl.textContent=game1.statusMessage
 
 })

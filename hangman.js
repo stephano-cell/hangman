@@ -8,7 +8,7 @@ class Hangman{
 
     //check if game is finished or failed (97)
     calculateStatus(){
-    const isGuessCorrect=this.word.every((letter)=>this.guessLetters.includes(letter))
+    const isGuessCorrect=this.word.every((letter)=>this.guessLetters.includes(letter) || letter===" ")
 
 
         if(this.remainingGuesses===0){
@@ -20,7 +20,7 @@ class Hangman{
         }
     }
     //Status message
-    statusMessage(){
+   get statusMessage(){
         //to show wrong guesses to user
         let wrongGuesses=''
         this.guessLetters.forEach((letter)=>{
@@ -28,7 +28,7 @@ class Hangman{
                 wrongGuesses+=letter+','    
             }
             })
-    
+
         if(this.status==='fail'){
             return `Nice try. Correct word was "${this.word.join('')}"`
         }else if(this.status==='finished'){
@@ -38,7 +38,7 @@ class Hangman{
         }
     }
 
-    getPuzzle(){
+   get getPuzzle(){
         let puzzle=''
         this.word.forEach((letter)=>{
         this.guessLetters.includes(letter) || letter===" "?puzzle+=letter:puzzle+='*'
