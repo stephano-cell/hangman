@@ -8,17 +8,9 @@ class Hangman{
 
     //check if game is finished or failed (97)
     calculateStatus(){
-        let isGuessCorrect=true
+    const isGuessCorrect=this.word.every((letter)=>this.guessLetters.includes(letter))
 
-        this.word.forEach((letter)=>{
-       
-         if(this.guessLetters.includes(letter)){
-    
-            }else {
-                isGuessCorrect=false
-            }
-       
-        })
+
         if(this.remainingGuesses===0){
             this.status='fail'
         }else if(isGuessCorrect){
