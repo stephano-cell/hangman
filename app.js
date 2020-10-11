@@ -1,12 +1,6 @@
-//Primitive value: string, number, boolean, null, undefined
-
-//Object: myObject--> Object.prototype -->null
-//Array: myArray --> Array.prototype --> Object.prototype --> null
-//Function: myFUnc-->function.prototype-->Object.prototype-->null
-//String: myString-->String.prototype-->Object.prototype-->null
-//Number: myNumber-->Number.prototype-->Object.prototype-->null\
-//Boolean: myBoolean-->Boolean.prototype-->Object.prototype-->null
-
+//HTTP (Hyper text Protocol)
+//Request - What do we want to do
+//Response - What was actually done
 
 const getPuzzleEl=document.querySelector('#get-puzzle')
 const guessCountEl=document.querySelector('#guess-count')
@@ -19,7 +13,7 @@ statusMessageEl.textContent=game1.statusMessage
 guessCountEl.textContent=`The word has ${game1.word.length} letters`
 
 
-window.addEventListener('keypress',function(e){
+window.addEventListener('keypress',(e)=>{
     const guess=String.fromCharCode(e.charCode)
     game1.makeGuess(guess)
     getPuzzleEl.textContent=game1.getPuzzle
@@ -27,3 +21,17 @@ window.addEventListener('keypress',function(e){
     statusMessageEl.textContent=game1.statusMessage
 
 })
+
+ //Making an HTTP request
+const request = new XMLHttpRequest()
+request.addEventListener('readystatechange',(e)=>{
+    if(e.target.readyState===4 && e.target.status===200){
+        const data=JSON.parse(e.target.responseText)
+    console.log(data)
+    }else if (e.target.readyState ===4){
+        console.log('An error has taken place')
+    }
+})
+
+request.open('GET','http://puzzle.mead.io/puzzle')
+request.send()
