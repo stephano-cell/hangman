@@ -2,36 +2,48 @@
 //Request - What do we want to do
 //Response - What was actually done
 
-const getPuzzleEl=document.querySelector('#get-puzzle')
-const guessCountEl=document.querySelector('#guess-count')
-const statusMessageEl=document.querySelector('#status-message')
-const game1=new Hangman('superman yolo',10)
+const getPuzzleEl = document.querySelector("#get-puzzle");
+const guessCountEl = document.querySelector("#guess-count");
+const statusMessageEl = document.querySelector("#status-message");
 
-getPuzzleEl.textContent=game1.getPuzzle
-statusMessageEl.textContent=game1.statusMessage
+const game1 = new Hangman("yolo", 10);
 
-guessCountEl.textContent=`The word has ${game1.word.length} letters`
+getPuzzleEl.textContent = game1.puzzle;
+statusMessageEl.textContent = game1.statusMessage;
 
+guessCountEl.textContent = `The word has ${game1.word.length} letters`;
 
-window.addEventListener('keypress',(e)=>{
-    const guess=String.fromCharCode(e.charCode)
-    game1.makeGuess(guess)
-    getPuzzleEl.textContent=game1.getPuzzle
-    guessCountEl.textContent=`The word has ${game1.word.length} letters`
-    statusMessageEl.textContent=game1.statusMessage
+window.addEventListener("keypress", (e) => {
+  const guess = String.fromCharCode(e.charCode);
+  game1.makeGuess(guess);
+  getPuzzleEl.textContent = game1.puzzle;
+  guessCountEl.textContent = `The word has ${game1.word.length} letters`;
+  statusMessageEl.textContent = game1.statusMessage;
+});
 
-})
+let yolo = getPuzzle((error, puzzle) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(puzzle);
+  }
+});
 
- //Making an HTTP request
-const request = new XMLHttpRequest()
-request.addEventListener('readystatechange',(e)=>{
-    if(e.target.readyState===4 && e.target.status===200){
-        const data=JSON.parse(e.target.responseText)
-    console.log(data)
-    }else if (e.target.readyState ===4){
-        console.log('An error has taken place')
-    }
-})
+//Making an HTTP request
 
-request.open('GET','http://puzzle.mead.io/puzzle')
-request.send()
+// const countryCode = "MX";
+// const requestCountry = new XMLHttpRequest();
+// requestCountry.addEventListener("readystatechange", (e) => {
+//   if (e.target.readyState === 4 && e.target.status === 200) {
+//     const allCountries = JSON.parse(e.target.responseText);
+//     const findCountry = allCountries.find((country) => {
+//       return country.alpha2Code === countryCode;
+//     });
+//     console.log(findCountry.name);
+//   } else if (e.target.readyState === 4) {
+//     console.log("Unable to fetch data");
+//   }
+// });
+
+// requestCountry.open("GET", "https://restcountries.eu/rest/v2/all");
+// requestCountry.send();
