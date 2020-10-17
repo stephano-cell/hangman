@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head></head>
-<body>
-    <p id="get-puzzle"></p>
-    <p id='guess-count'></p>
-    <p id="status-message"></p>
-    <button id="reset">Reset</button>
-    <script src="requests.js"></script>
-    <script src="hangman.js"></script>
-    <script src="app.js"></script>
-</body>
+<head>
+    <title>Hangman</title>
+    <link rel="stylesheet" href="/styles/styles.css">
 
+</head>
+<body>
+    <div>
+        <div id="get-puzzle" class='puzzle'></div>
+        <p id='guess-count' class="warning"></p>
+        <p id="status-message" ></p> 
+        <button id="reset" class='button'>Reset</button>
+    </div>
+    <script src="/scripts/requests.js"></script>
+    <script src="/scripts/hangman.js"></script>
+    <script src="/scripts/app.js"></script>
+</body> 
 </html>

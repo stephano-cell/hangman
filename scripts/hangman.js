@@ -35,7 +35,7 @@ class Hangman {
     } else if (this.status === "finished") {
       return "Great job";
     } else if (this.status === "playing") {
-      return `Guesses left: ${this.remainingGuesses}. Your Wrong guessed words are:  ${wrongGuesses}`;
+      return `Guesses left: ${this.remainingGuesses}. Your Wrong guessed words are:  ${wrongGuesses.toUpperCase()}`;
     }
   }
 
