@@ -2,48 +2,67 @@
 //Request - What do we want to do
 //Response - What was actually done
 
+//call back function for puzzlerequest
+
+
 const getPuzzleEl = document.querySelector("#get-puzzle");
 const guessCountEl = document.querySelector("#guess-count");
 const statusMessageEl = document.querySelector("#status-message");
 
-const game1 = new Hangman("yolo", 10);
+let game1 
 
-getPuzzleEl.textContent = game1.puzzle;
-statusMessageEl.textContent = game1.statusMessage;
-
-guessCountEl.textContent = `The word has ${game1.word.length} letters`;
 
 window.addEventListener("keypress", (e) => {
   const guess = String.fromCharCode(e.charCode);
   game1.makeGuess(guess);
+render()
+});
+
+const render = ()=>{
   getPuzzleEl.textContent = game1.puzzle;
-  guessCountEl.textContent = `The word has ${game1.word.length} letters`;
   statusMessageEl.textContent = game1.statusMessage;
-});
+  guessCountEl.textContent = `The word has ${game1.word.length} letters`;
+}
 
-let yolo = getPuzzle((error, puzzle) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(puzzle);
-  }
-});
+const startGame=async()=>{
+  const puzzle=await getPuzzle('1')
+  game1=new Hangman(puzzle, 5)
+  render()
+}
 
-//Making an HTTP request
+document.querySelector('#reset').addEventListener('click',()=>{
+  startGame()
+})
+startGame()
 
-// const countryCode = "MX";
-// const requestCountry = new XMLHttpRequest();
-// requestCountry.addEventListener("readystatechange", (e) => {
-//   if (e.target.readyState === 4 && e.target.status === 200) {
-//     const allCountries = JSON.parse(e.target.responseText);
-//     const findCountry = allCountries.find((country) => {
-//       return country.alpha2Code === countryCode;
-//     });
-//     console.log(findCountry.name);
-//   } else if (e.target.readyState === 4) {
-//     console.log("Unable to fetch data");
-//   }
-// });
 
-// requestCountry.open("GET", "https://restcountries.eu/rest/v2/all");
-// requestCountry.send();
+
+
+
+//get puzzle with fetch
+// getPuzzle(1).then((puzzle)=>{
+//   console.log(puzzle)
+//   }).catch((error)=>{
+//   console.log(error)
+//   })
+
+//get country from ip api with getCountry   
+//  
+
+// get location form ip api and chain with getCountry
+// getLocation().then((location)=>{
+// return getCountry(location.country)
+// }).then((country)=>{
+//  console.log(country.name)
+// }).catch((error)=>{
+//   console.log(error)
+// })
+
+
+// get puzzle with XMLHttp
+// console.log(getPuzzle(1).then((puzzle)=>{
+//   console.log(puzzle)
+//  },(err)=>{
+//    console.log(err)
+//  })
+// ) 
