@@ -28,7 +28,7 @@ getPuzzleEl.appendChild(letterEl)
 //start game
 const startGame=async()=>{
   const puzzle=await getPuzzle('1')
-  game1=new Hangman(puzzle, 12)
+  game1=new Hangman(puzzle, 6)
   render()
 }
 
